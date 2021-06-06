@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.telephony.SmsManager;
 import android.widget.Toast;
@@ -16,12 +15,11 @@ import androidx.core.app.ActivityCompat;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView lblCelular;
-    private EditText et1;
+    private TextView lblIngresar;
     private Button btnEnviarSMS;
     private TextView inCelular;
     private Button btnValidarSMS;
-    private Number inCodigo;
+    private TextView inCodigo;
     private int codigoGenerado;
 
     @Override
@@ -29,9 +27,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btnEnviarSMS = (Button)findViewById(R.id.btnEnviarSMS);
-        lblCelular = (TextView) findViewById(R.id.labelCel);
+        lblIngresar = (TextView) findViewById(R.id.lblIngresar);
         btnValidarSMS = (Button) findViewById(R.id.btnValidarSMS);
-        inCodigo = (Number) (R.id.editText3);
+        inCodigo = (TextView) findViewById(R.id.inCodigo);
         inCelular = (TextView) findViewById(R.id.inCelular);
         if(ActivityCompat.checkSelfPermission(
                 MainActivity.this, Manifest.permission.SEND_SMS)
@@ -40,29 +38,28 @@ public class MainActivity extends AppCompatActivity {
                         .permission.SEND_SMS)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(MainActivity.this,new String[]
                     { Manifest.permission.SEND_SMS,},1000);
-        }else{
-        };
-            }
+        }
+    }
 
     public void enviarSMS(View view){
         codigoGenerado = (int) Math.random();
         codigoGenerado = 123;
         enviarMensaje(" " ,"Ingresa el número" + codigoGenerado + "en tu pantalla");
+        lblIngresar.setText("Ingrese el código");
         btnEnviarSMS.setVisibility(View.INVISIBLE);
-        lblCelular.setVisibility(View.INVISIBLE);
         inCelular.setVisibility(View.INVISIBLE);
         btnValidarSMS.setVisibility(View.VISIBLE);
-        //inCodigo.setVisibility(View.VISIBLE);
-        }
+        inCodigo.setVisibility(View.VISIBLE);
+
+    }
 
     public void verificarSMS(View view){
-        if((codigoGenerado) != inCodigo.intValue()){
+        if((codigoGenerado) == Integer.valueOf((String)inCodigo.getText())) {
             Intent i = new Intent(this, Login.class);
             startActivity(i);
         }
         else
             btnValidarSMS.setVisibility(View.INVISIBLE);
-
 
     }
     
