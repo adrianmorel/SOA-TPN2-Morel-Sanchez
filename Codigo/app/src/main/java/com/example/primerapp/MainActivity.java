@@ -42,9 +42,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void enviarSMS(View view){
-        codigoGenerado = (int) Math.random();
-        codigoGenerado = 123;
-        enviarMensaje(" " ,"Ingresa el número" + codigoGenerado + "en tu pantalla");
+        codigoGenerado = (int)(Math.random()*1000+1);
+        enviarMensaje(inCelular.getText().toString(),"Ingresa el número" +" "+ codigoGenerado +" " + "en tu pantalla");
         lblIngresar.setText("Ingrese el código");
         btnEnviarSMS.setVisibility(View.INVISIBLE);
         inCelular.setVisibility(View.INVISIBLE);
@@ -54,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void verificarSMS(View view){
-        if(1 == 1/*(codigoGenerado) == Integer.valueOf((String)inCodigo.getText())*/) {
+        if(codigoGenerado == Integer.parseInt(inCodigo.getText().toString())){
             Intent i = new Intent(this, Login.class);
             startActivity(i);
         }
