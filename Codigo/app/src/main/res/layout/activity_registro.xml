@@ -7,70 +7,79 @@
     tools:context=".Registro">
 
     <EditText
-        android:id="@+id/inNombre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/inDNI"
+        android:layout_width="236dp"
+        android:layout_height="42dp"
         android:ems="10"
-        android:hint="Nombre"
-        android:inputType="textPersonName"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/inApellido"
+        android:hint="Documento (sólo números)"
+        android:inputType="number"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/inCorreo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.408"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintVertical_bias="0.801" />
 
     <EditText
         android:id="@+id/inApellido"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_width="232dp"
+        android:layout_height="47dp"
         android:ems="10"
         android:hint="Apellido"
         android:inputType="textPersonName"
-        android:textSize="10sp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.411"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inNombre" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.165" />
 
     <EditText
-        android:id="@+id/inDNI"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="248dp"
+        android:id="@+id/inNombre"
+        android:layout_width="233dp"
+        android:layout_height="38dp"
         android:ems="10"
-        android:hint="Documento"
-        android:inputType="number"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/inCorreo"
+        android:hint="Nombre"
+        android:inputType="textPersonName"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.411"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.251" />
 
     <EditText
         android:id="@+id/inCorreo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="300dp"
+        android:layout_width="241dp"
+        android:layout_height="42dp"
+        android:layout_marginBottom="324dp"
         android:ems="10"
         android:hint="Correo electrónico"
         android:inputType="textEmailAddress"
-        android:textSize="10sp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/inPass"
-        app:layout_constraintHorizontal_bias="0.576"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.404"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.876" />
 
     <EditText
         android:id="@+id/inPass"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
+        android:layout_width="237dp"
+        android:layout_height="39dp"
         android:ems="10"
-        android:hint="Password"
+        android:hint="Password (min 8 carac)"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inDNI"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintHorizontal_bias="0.409"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.545" />
 
     <Button
         android:id="@+id/btnConfirmar"
@@ -78,6 +87,25 @@
         android:layout_height="wrap_content"
         android:onClick="registrar"
         android:text="Confirmar"
-        tools:layout_editor_absoluteX="323dp"
-        tools:layout_editor_absoluteY="219dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.446"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.689" />
+
+    <TextView
+        android:id="@+id/lblRegistro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registro"
+        android:textColor="#020000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.426"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.07" />
 </androidx.constraintlayout.widget.ConstraintLayout>
