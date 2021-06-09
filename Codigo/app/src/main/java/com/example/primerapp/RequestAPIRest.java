@@ -44,11 +44,8 @@ public class RequestAPIRest extends android.os.AsyncTask<String, Void, Integer> 
             wr.write(json.toString());
             wr.flush();
             conn.connect();
-            int resp = conn.getResponseCode();
-            if(resp == 200) {
-                System.out.println(resp + " " + conn.getResponseMessage());
-                return resp;
-            }
+            System.out.println(conn.getResponseCode() + " " + conn.getResponseMessage());
+
 
         } catch (IOException e) {
             e.printStackTrace();
