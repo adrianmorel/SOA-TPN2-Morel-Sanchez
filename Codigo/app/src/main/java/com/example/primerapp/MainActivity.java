@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void verificarSMS(View view){
-        if(codigoGenerado == Integer.parseInt(inCodigo.getText().toString())){
+        if(1 == 1 /*codigoGenerado == Integer.parseInt(inCodigo.getText().toString())*/){
             Intent i = new Intent(this, Login.class);
             startActivity(i);
         }
@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         try {
             SmsManager sms = SmsManager.getDefault();
             sms.sendTextMessage(numero,null,mensaje,null,null);
-            System.out.println("enviado mensj");
             Toast.makeText(getApplicationContext(), "Mensaje Enviado.", Toast.LENGTH_LONG).show();
         }
         catch (Exception e) {
