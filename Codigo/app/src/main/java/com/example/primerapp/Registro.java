@@ -22,11 +22,12 @@ import java.nio.charset.StandardCharsets;
 
 public class Registro extends AppCompatActivity {
 
-    TextView name;
-    TextView surname;
-    TextView email;
-    TextView pw;
-    TextView dni;
+    private TextView name;
+    private TextView surname;
+    private TextView email;
+    private TextView pw;
+    private TextView repass;
+    private TextView dni;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class Registro extends AppCompatActivity {
         dni = (TextView) findViewById(R.id.inDNI);
         email = (TextView) findViewById(R.id.inCorreo);
         pw = (TextView) findViewById(R.id.inPass);
+        repass = (TextView) findViewById(R.id.inRepPass);
 
         hilo.execute(name.getText().toString(), surname.getText().toString(), dni.getText().toString(), email.getText().toString(), pw.getText().toString());
 

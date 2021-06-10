@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void enviarSMS(View view){
-        codigoGenerado = (int)(Math.random()*1000+1);
+        codigoGenerado = (int)(Math.random()*10000+1);
         enviarMensaje(inCelular.getText().toString(),"Ingresa el número" +" "+ codigoGenerado +" " + "en tu pantalla");
         lblIngresar.setText("Ingrese el código");
         btnEnviarSMS.setVisibility(View.INVISIBLE);
