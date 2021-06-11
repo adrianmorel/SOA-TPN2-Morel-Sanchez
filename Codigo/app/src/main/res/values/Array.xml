@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="personas">
+        <item>6 personas</item>
+        <item>10 personas</item>
+        <item>15 personas</item>
+    </string-array>
+
+    <string-array name="mascarillas">
+        <item>Con mascarilla</item>
+        <item>Sin mascarilla</item>
+    </string-array>
+
+    <string-array name="ventanas">
+        <item>Ventana cerrada</item>
+        <item>Ventana entreabierta</item>
+        <item>Ventilación 10 minutos cada hora</item>
+    </string-array>
+
+    <string-array name="tiempoHablando">
+        <item>Corto (2:30 Hs)</item>
+        <item>Largo (4:30 Hs)</item>
+    </string-array>
+
+    <string-array name="volumenDeVoz">
+        <item>Voz normal</item>
+        <item>Voz alta (gritar, cantar)</item>
+    </string-array>
+
+</resources>

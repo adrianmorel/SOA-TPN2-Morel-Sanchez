@@ -1,0 +1,73 @@
+﻿Cantidad de personas;Mascarillas;Ventanas;Tiempo hablando;Volumen de voz;Probabilidad de ser infectado;Personas infectadas
+6 personas;Con mascarillas;Ventana cerrada;Corto (2:30 Hs);Voz normal;8;0
+6 personas;Con mascarillas;Ventana cerrada;Corto (2:30 Hs);Voz alta (gritar, cantar);71;4
+6 personas;Con mascarillas;Ventana cerrada;Largo (4:30 Hs);Voz normal;13;1
+6 personas;Con mascarillas;Ventana cerrada;Largo (4:30 Hs);Voz alta (gritar, cantar);89;6
+6 personas;Con mascarillas;Ventana entreabierta;Corto (2:30 Hs);Voz normal;7;0
+6 personas;Con mascarillas;Ventana entreabierta;Corto (2:30 Hs);Voz alta (gritar, cantar);66;4
+6 personas;Con mascarillas;Ventana entreabierta;Largo (4:30 Hs);Voz normal;11;1
+6 personas;Con mascarillas;Ventana entreabierta;Largo (4:30 Hs);Voz alta (gritar, cantar);85;6
+6 personas;Con mascarillas;Ventiliación 10 min cada hora;Corto (2:30 Hs);Voz normal;3;0
+6 personas;Con mascarillas;Ventiliación 10 min cada hora;Corto (2:30 Hs);Voz alta (gritar, cantar);36;2
+6 personas;Con mascarillas;Ventiliación 10 min cada hora;Largo (4:30 Hs);Voz normal;5;0
+6 personas;Con mascarillas;Ventiliación 10 min cada hora;Largo (4:30 Hs);Voz alta (gritar, cantar);55;3
+6 personas;Sin mascarillas;Ventana cerrada;Corto (2:30 Hs);Voz normal;59;4
+6 personas;Sin mascarillas;Ventana cerrada;Corto (2:30 Hs);Voz alta (gritar, cantar);100;6
+6 personas;Sin mascarillas;Ventana cerrada;Largo (4:30 Hs);Voz normal;79;6
+6 personas;Sin mascarillas;Ventana cerrada;Largo (4:30 Hs);Voz alta (gritar, cantar);100;6
+6 personas;Sin mascarillas;Ventana entreabierta;Corto (2:30 Hs);Voz normal;54;3
+6 personas;Sin mascarillas;Ventana entreabierta;Corto (2:30 Hs);Voz alta (gritar, cantar);100;6
+6 personas;Sin mascarillas;Ventana entreabierta;Largo (4:30 Hs);Voz normal;74;4
+6 personas;Sin mascarillas;Ventana entreabierta;Largo (4:30 Hs);Voz alta (gritar, cantar);100;6
+6 personas;Sin mascarillas;Ventiliación 10 min cada hora;Corto (2:30 Hs);Voz normal;28;2
+6 personas;Sin mascarillas;Ventiliación 10 min cada hora;Corto (2:30 Hs);Voz alta (gritar, cantar);99;6
+6 personas;Sin mascarillas;Ventiliación 10 min cada hora;Largo (4:30 Hs);Voz normal;43;3
+6 personas;Sin mascarillas;Ventiliación 10 min cada hora;Largo (4:30 Hs);Voz alta (gritar, cantar);100;6
+10 personas;Con mascarillas;Ventana cerrada;Corto (2:30 Hs);Voz normal;4;0
+10 personas;Con mascarillas;Ventana cerrada;Corto (2:30 Hs);Voz alta (gritar, cantar);46;5
+10 personas;Con mascarillas;Ventana cerrada;Largo (4:30 Hs);Voz normal;7;1
+10 personas;Con mascarillas;Ventana cerrada;Largo (4:30 Hs);Voz alta (gritar, cantar);67;7
+10 personas;Con mascarillas;Ventana entreabierta;Corto (2:30 Hs);Voz normal;3;0
+10 personas;Con mascarillas;Ventana entreabierta;Corto (2:30 Hs);Voz alta (gritar, cantar);41;4
+10 personas;Con mascarillas;Ventana entreabierta;Largo (4:30 Hs);Voz normal;6;1
+10 personas;Con mascarillas;Ventana entreabierta;Largo (4:30 Hs);Voz alta (gritar, cantar);62;6
+10 personas;Con mascarillas;Ventiliación 10 min cada hora;Corto (2:30 Hs);Voz normal;1;0
+10 personas;Con mascarillas;Ventiliación 10 min cada hora;Corto (2:30 Hs);Voz alta (gritar, cantar);20;2
+10 personas;Con mascarillas;Ventiliación 10 min cada hora;Largo (4:30 Hs);Voz normal;3;0
+10 personas;Con mascarillas;Ventiliación 10 min cada hora;Largo (4:30 Hs);Voz alta (gritar, cantar);33;3
+10 personas;Sin mascarillas;Ventana cerrada;Corto (2:30 Hs);Voz normal;36;4
+10 personas;Sin mascarillas;Ventana cerrada;Corto (2:30 Hs);Voz alta (gritar, cantar);100;6
+10 personas;Sin mascarillas;Ventana cerrada;Largo (4:30 Hs);Voz normal;54;5
+10 personas;Sin mascarillas;Ventana cerrada;Largo (4:30 Hs);Voz alta (gritar, cantar);100;6
+10 personas;Sin mascarillas;Ventana entreabierta;Corto (2:30 Hs);Voz normal;32;3
+10 personas;Sin mascarillas;Ventana entreabierta;Corto (2:30 Hs);Voz alta (gritar, cantar);100;10
+10 personas;Sin mascarillas;Ventana entreabierta;Largo (4:30 Hs);Voz normal;49;5
+10 personas;Sin mascarillas;Ventana entreabierta;Largo (4:30 Hs);Voz alta (gritar, cantar);100;10
+10 personas;Sin mascarillas;Ventiliación 10 min cada hora;Corto (2:30 Hs);Voz normal;15;2
+10 personas;Sin mascarillas;Ventiliación 10 min cada hora;Corto (2:30 Hs);Voz alta (gritar, cantar);92;10
+10 personas;Sin mascarillas;Ventiliación 10 min cada hora;Largo (4:30 Hs);Voz normal;25;2
+10 personas;Sin mascarillas;Ventiliación 10 min cada hora;Largo (4:30 Hs);Voz alta (gritar, cantar);99;10
+15 personas;Con mascarillas;Ventana cerrada;Corto (2:30 Hs);Voz normal;4;1
+15 personas;Con mascarillas;Ventana cerrada;Corto (2:30 Hs);Voz alta (gritar, cantar);46;7
+15 personas;Con mascarillas;Ventana cerrada;Largo (4:30 Hs);Voz normal;7;1
+15 personas;Con mascarillas;Ventana cerrada;Largo (4:30 Hs);Voz alta (gritar, cantar);67;10
+15 personas;Con mascarillas;Ventana entreabierta;Corto (2:30 Hs);Voz normal;3;1
+15 personas;Con mascarillas;Ventana entreabierta;Corto (2:30 Hs);Voz alta (gritar, cantar);41;6
+15 personas;Con mascarillas;Ventana entreabierta;Largo (4:30 Hs);Voz normal;6;1
+15 personas;Con mascarillas;Ventana entreabierta;Largo (4:30 Hs);Voz alta (gritar, cantar);62;9
+15 personas;Con mascarillas;Ventiliación 10 min cada hora;Corto (2:30 Hs);Voz normal;1;0
+15 personas;Con mascarillas;Ventiliación 10 min cada hora;Corto (2:30 Hs);Voz alta (gritar, cantar);20;3
+15 personas;Con mascarillas;Ventiliación 10 min cada hora;Largo (4:30 Hs);Voz normal;3;0
+15 personas;Con mascarillas;Ventiliación 10 min cada hora;Largo (4:30 Hs);Voz alta (gritar, cantar);33;5
+15 personas;Sin mascarillas;Ventana cerrada;Corto (2:30 Hs);Voz normal;36;5
+15 personas;Sin mascarillas;Ventana cerrada;Corto (2:30 Hs);Voz alta (gritar, cantar);100;15
+15 personas;Sin mascarillas;Ventana cerrada;Largo (4:30 Hs);Voz normal;54;8
+15 personas;Sin mascarillas;Ventana cerrada;Largo (4:30 Hs);Voz alta (gritar, cantar);100;15
+15 personas;Sin mascarillas;Ventana entreabierta;Corto (2:30 Hs);Voz normal;32;5
+15 personas;Sin mascarillas;Ventana entreabierta;Corto (2:30 Hs);Voz alta (gritar, cantar);100;15
+15 personas;Sin mascarillas;Ventana entreabierta;Largo (4:30 Hs);Voz normal;49;7
+15 personas;Sin mascarillas;Ventana entreabierta;Largo (4:30 Hs);Voz alta (gritar, cantar);100;15
+15 personas;Sin mascarillas;Ventiliación 10 min cada hora;Corto (2:30 Hs);Voz normal;15;2
+15 personas;Sin mascarillas;Ventiliación 10 min cada hora;Corto (2:30 Hs);Voz alta (gritar, cantar);92;15
+15 personas;Sin mascarillas;Ventiliación 10 min cada hora;Largo (4:30 Hs);Voz normal;24;4
+15 personas;Sin mascarillas;Ventiliación 10 min cada hora;Largo (4:30 Hs);Voz alta (gritar, cantar);99;15

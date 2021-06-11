@@ -18,4 +18,9 @@ public class Login extends AppCompatActivity {
         Intent i = new Intent(this, Registro.class);
         startActivity(i);
     }
+
+    public void confirmarInicio(View view){
+        Intent i = new Intent(this, Parametros.class);
+        startActivity(i);
+    }
 }
