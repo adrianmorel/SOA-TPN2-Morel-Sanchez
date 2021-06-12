@@ -46,7 +46,6 @@ public class RequestAPIRest extends android.os.AsyncTask<String, Void, Integer> 
             conn.connect();
             System.out.println(conn.getResponseCode() + " " + conn.getResponseMessage());
 
-
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {

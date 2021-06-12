@@ -4,12 +4,18 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.primerapp.SimpleDialog;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONException;
 
@@ -36,7 +42,7 @@ public class Registro extends AppCompatActivity {
     }
 
     @SuppressLint("ResourceType")
-    public void registrar (View view) throws IOException, JSONException {
+    public void registrar(View view) throws IOException, JSONException, InterruptedException {
 
         RequestAPIRest hilo = new RequestAPIRest();
 
@@ -47,8 +53,21 @@ public class Registro extends AppCompatActivity {
         pw = (TextView) findViewById(R.id.inPass);
         repass = (TextView) findViewById(R.id.inRepPass);
 
+        if(pw.length() < 8){
+            Toast.makeText(getApplicationContext(), "La contraseña debe tener 8 caracteres como minimo", 10).show();
+            return;
+        }
+        System.out.println(pw.getText().toString() + "VS " + repass.getText().toString());
+
+        if(!pw.getText().toString().equals(repass.getText().toString())){
+            Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", 10).show();
+            return;
+        }
+
+        Toast.makeText(getApplicationContext(), "Verificando datos del servidor..", 10).show();
         hilo.execute(name.getText().toString(), surname.getText().toString(), dni.getText().toString(), email.getText().toString(), pw.getText().toString());
-
+        Toast.makeText(getApplicationContext(), "Registrado Exitosamente!", 10).show();
+        Intent i = new Intent(this, Login.class);
+        startActivity(i);
     }
-
 }
