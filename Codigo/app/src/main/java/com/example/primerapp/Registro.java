@@ -62,37 +62,37 @@ public class Registro extends AppCompatActivity {
         pb = (ProgressBar) findViewById(R.id.progressBar);
 
         if(name.length() == 0){
-            Toast.makeText(getApplicationContext(), "El Nombre no puede estar vacio", 10).show();
+            Toast.makeText(getApplicationContext(), "El Nombre no puede estar vacio", Toast.LENGTH_LONG).show();
             return;
         }
 
         if(surname.length() == 0){
-            Toast.makeText(getApplicationContext(), "El Apellido no puede estar vacio", 10).show();
+            Toast.makeText(getApplicationContext(), "El Apellido no puede estar vacio", Toast.LENGTH_LONG).show();
             return;
         }
 
         if(dni.length() == 0){
-            Toast.makeText(getApplicationContext(), "El DNI no puede estar vacio", 10).show();
+            Toast.makeText(getApplicationContext(), "El DNI no puede estar vacio", Toast.LENGTH_LONG).show();
             return;
         }
 
         if(email.length() == 0){
-            Toast.makeText(getApplicationContext(), "El email no puede estar vacio", 10).show();
+            Toast.makeText(getApplicationContext(), "El email no puede estar vacio", Toast.LENGTH_LONG).show();
             return;
         }
 
         if(pw.length() < 8){
-            Toast.makeText(getApplicationContext(), "La contraseña debe tener 8 caracteres como minimo", 10).show();
+            Toast.makeText(getApplicationContext(), "La contraseña debe tener 8 caracteres como minimo", Toast.LENGTH_LONG).show();
             return;
         }
         System.out.println(pw.getText().toString() + "VS " + repass.getText().toString());
 
         if(!pw.getText().toString().equals(repass.getText().toString())){
-            Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", 10).show();
+            Toast.makeText(getApplicationContext(), "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();
             return;
         }
 
-        Toast.makeText(getApplicationContext(), "Verificando datos del servidor..", 10).show();
+        Toast.makeText(getApplicationContext(), "Verificando datos del servidor..", Toast.LENGTH_LONG).show();
         pb.setVisibility(View.VISIBLE);
         botonConf.setVisibility(View.INVISIBLE);
         hilo.execute(name.getText().toString(), surname.getText().toString(), dni.getText().toString(), email.getText().toString(), pw.getText().toString());
@@ -149,13 +149,13 @@ public class Registro extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
             if(result == 200){
-                Toast.makeText(getApplicationContext(), "¡Registrado exitosamente!", 10).show();
+                Toast.makeText(getApplicationContext(), "¡Registrado exitosamente!", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(Registro.this, Login.class);
                 startActivity(intent);
                 pb.setVisibility(View.INVISIBLE);
             }
             else {
-                Toast.makeText(getApplicationContext(), "¡UPS! algo salió mal :(", 10).show();
+                Toast.makeText(getApplicationContext(), "¡UPS! algo salió mal :(", Toast.LENGTH_LONG).show();
             }
         }
     }
