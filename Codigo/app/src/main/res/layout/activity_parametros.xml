@@ -7,19 +7,90 @@
     tools:context=".Parametros">
 
 
-    <Spinner
-        android:id="@+id/listOpciones"
+    <TextView
+        android:id="@+id/txtMascarillas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginTop="20dp"
+        android:text="Mascarillas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtOpciones" />
+        app:layout_constraintTop_toBottomOf="@+id/comboVolumenDeVoz" />
+
+    <TextView
+        android:id="@+id/txtVolumenDeVoz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Volumen de voz"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comboTiempoHablando" />
+
+    <TextView
+        android:id="@+id/txtTiempoHablando"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Tiempo hablando"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comboVentanas" />
+
+    <TextView
+        android:id="@+id/txtVentanas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Ventanas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comboPersonas" />
+
+    <Spinner
+        android:id="@+id/comboMascarillas"
+        android:layout_width="234dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="10dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMascarillas" />
+
+    <Spinner
+        android:id="@+id/comboVentanas"
+        android:layout_width="234dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="10dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtVentanas" />
+
+    <Spinner
+        android:id="@+id/comboTiempoHablando"
+        android:layout_width="234dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="10dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTiempoHablando" />
+
+    <Spinner
+        android:id="@+id/comboVolumenDeVoz"
+        android:layout_width="234dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="10dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtVolumenDeVoz" />
 
     <TextView
         android:id="@+id/txtOpciones"
@@ -37,5 +108,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/comboPersonas"
+        android:layout_width="234dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="10dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPersonas" />
+
+    <TextView
+        android:id="@+id/txtPersonas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="Cantidad de personas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtOpciones" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

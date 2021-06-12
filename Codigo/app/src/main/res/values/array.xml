@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string-array name="personas">
         <item>6 personas</item>
         <item>10 personas</item>
@@ -27,5 +26,4 @@
         <item>Voz normal</item>
         <item>Voz alta (gritar, cantar)</item>
     </string-array>
-
 </resources>
