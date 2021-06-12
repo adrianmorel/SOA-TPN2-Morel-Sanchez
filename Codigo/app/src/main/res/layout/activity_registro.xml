@@ -10,9 +10,9 @@
         android:id="@+id/btnConfirmarRegistro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginRight="70dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="160dp"
+        android:layout_marginRight="160dp"
         android:onClick="registrar"
         android:text="Confirmar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,8 +60,8 @@
 
     <EditText
         android:id="@+id/inNombre"
-        android:layout_width="233dp"
-        android:layout_height="38dp"
+        android:layout_width="236dp"
+        android:layout_height="49dp"
         android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="Nombre"
@@ -112,14 +112,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnCancelarRegistro"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="30dp"
-        android:text="Cancelar"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inRepPass" />
 </androidx.constraintlayout.widget.ConstraintLayout>
