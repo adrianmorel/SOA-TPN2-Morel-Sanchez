@@ -53,6 +53,26 @@ public class Registro extends AppCompatActivity {
         pw = (TextView) findViewById(R.id.inPass);
         repass = (TextView) findViewById(R.id.inRepPass);
 
+        if(name.length() == 0){
+            Toast.makeText(getApplicationContext(), "El Nombre no puede estar vacio", 10).show();
+            return;
+        }
+
+        if(surname.length() == 0){
+            Toast.makeText(getApplicationContext(), "El Apellido no puede estar vacio", 10).show();
+            return;
+        }
+
+        if(dni.length() == 0){
+            Toast.makeText(getApplicationContext(), "El DNI no puede estar vacio", 10).show();
+            return;
+        }
+
+        if(email.length() == 0){
+            Toast.makeText(getApplicationContext(), "El email no puede estar vacio", 10).show();
+            return;
+        }
+
         if(pw.length() < 8){
             Toast.makeText(getApplicationContext(), "La contraseña debe tener 8 caracteres como minimo", 10).show();
             return;
