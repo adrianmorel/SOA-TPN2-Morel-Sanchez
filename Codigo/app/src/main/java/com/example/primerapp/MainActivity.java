@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.telephony.SmsManager;
 import android.widget.Toast;
@@ -20,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView inCelular;
     private Button btnValidarSMS;
     private TextView inCodigo;
+    private TextView lblInicio;
+    private TextView tituloProy;
+    private ImageView imgCov;
+    private ImageView imgCalc;
     private int codigoGenerado;
 
     @Override
@@ -31,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
         btnValidarSMS = (Button) findViewById(R.id.btnValidarSMS);
         inCodigo = (TextView) findViewById(R.id.inCodigo);
         inCelular = (TextView) findViewById(R.id.inCelular);
+        lblInicio = (TextView) findViewById(R.id.lblInicio2);
+        tituloProy = (TextView) findViewById(R.id.titleProy);
+        imgCalc = (ImageView) findViewById(R.id.imagecalc);
+        imgCov = (ImageView) findViewById(R.id.imgCovid);
         if(ActivityCompat.checkSelfPermission(
                 MainActivity.this, Manifest.permission.SEND_SMS)
                 != PackageManager.PERMISSION_GRANTED&& ActivityCompat.checkSelfPermission(
@@ -39,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this,new String[]
                     { Manifest.permission.SEND_SMS,},1000);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     public void enviarSMS(View view){

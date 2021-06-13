@@ -1,8 +1,13 @@
 package com.example.primerapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,11 +18,17 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Login extends AppCompatActivity {
     TextView email;
@@ -58,6 +69,15 @@ public class Login extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "El campo password no puede estar vacio", Toast.LENGTH_LONG).show();
             return;
         }
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            System.out.println("Conexion a internet ok");
+        } else {
+            Toast.makeText(getApplicationContext(), "No hay conexion a internet, revise su estado de red e intentelo nuevamente", Toast.LENGTH_LONG).show();
+            return;
+        }
         pb.setVisibility(View.VISIBLE);
         lg.execute(email.getText().toString(), pass.getText().toString());
         botonConf.setVisibility(View.INVISIBLE);
@@ -69,6 +89,7 @@ public class Login extends AppCompatActivity {
     // Asynctask ---------------------------------------------------------------------------------
     public class LoginTask extends android.os.AsyncTask<String, Void, Integer> {
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         protected Integer doInBackground(String... params) {
             URL url = null;
@@ -96,6 +117,13 @@ public class Login extends AppCompatActivity {
                 int respCode = conn.getResponseCode();
                 String respMessage = conn.getResponseMessage();
                 System.out.println(respCode + " " + respMessage);
+
+                InputStream token = new BufferedInputStream(conn.getInputStream());
+                InputStreamReader inputStreamReader = new InputStreamReader(token);
+                Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
+                String streamToString = streamOfString.collect(Collectors.joining());
+                System.out.println(streamToString);
+
                 return respCode;
 
             } catch (IOException e) {
@@ -112,7 +140,7 @@ public class Login extends AppCompatActivity {
             if(code == 200){
                 Intent i = new Intent(Login.this, Parametros.class);
                 startActivity(i);
-                Toast.makeText(getApplicationContext(), "Inicio de sesión Correcto", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Inicio de sesión correcto", Toast.LENGTH_LONG).show();
                 pb.setVisibility(View.INVISIBLE);
                 botonCancel.setVisibility(View.VISIBLE);
                 botonQr.setVisibility(View.VISIBLE);
