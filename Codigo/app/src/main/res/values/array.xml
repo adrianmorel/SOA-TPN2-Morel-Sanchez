@@ -4,18 +4,17 @@
         <item>6 personas</item>
         <item>10 personas</item>
         <item>15 personas</item>
-        <item>20 personas</item>
     </string-array>
 
     <string-array name="mascarillas">
-        <item>Con mascarilla</item>
-        <item>Sin mascarilla</item>
+        <item>Con mascarillas</item>
+        <item>Sin mascarillas</item>
     </string-array>
 
     <string-array name="ventanas">
         <item>Ventana cerrada</item>
         <item>Ventana entreabierta</item>
-        <item>Ventilación 10 minutos cada hora</item>
+        <item>Ventilacion 10 min cada hora</item>
     </string-array>
 
     <string-array name="tiempoHablando">

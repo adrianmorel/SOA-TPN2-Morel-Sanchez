@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':opencsv-5.4'
 rootProject.name='Primer App'
