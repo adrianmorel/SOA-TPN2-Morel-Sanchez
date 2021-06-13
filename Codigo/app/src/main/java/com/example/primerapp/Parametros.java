@@ -35,8 +35,7 @@ public class Parametros extends AppCompatActivity {
         int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
         float battery = (level / (float)scale)*100;
-        SimpleDialog msjBateria = new SimpleDialog("Información de la batería", "Nivel de Batería: ", String.valueOf(battery));
-        msjBateria.createSimpleDialog("Información de la batería", "Nivel de Batería: ", String.valueOf(battery));
+        new SimpleDialog().show(getSupportFragmentManager(), String.valueOf(battery));
 
         cantPersonas = findViewById(R.id.comboPersonas);
         ArrayAdapter<CharSequence> adapterPersonas = ArrayAdapter.createFromResource(this, R.array.personas, android.R.layout.simple_spinner_dropdown_item);
