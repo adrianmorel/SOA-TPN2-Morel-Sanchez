@@ -14,7 +14,7 @@ public class SimpleDialog extends DialogFragment {
 
     public AlertDialog informarEstadoBateria() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Informacion")
+        builder.setTitle("Información")
                 .setMessage("Nivel de batería: "+ getTag() + "%")
                 .setPositiveButton("OK",
                         new DialogInterface.OnClickListener() {

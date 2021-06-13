@@ -3,7 +3,10 @@ package com.example.primerapp;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -64,6 +67,15 @@ public class Login extends AppCompatActivity {
         }
         if(pass.length() == 0){
             Toast.makeText(getApplicationContext(), "El campo password no puede estar vacio", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            System.out.println("Conexion a internet ok");
+        } else {
+            Toast.makeText(getApplicationContext(), "No hay conexion a internet, revise su estado de red e intentelo nuevamente", Toast.LENGTH_LONG).show();
             return;
         }
         pb.setVisibility(View.VISIBLE);
@@ -128,7 +140,7 @@ public class Login extends AppCompatActivity {
             if(code == 200){
                 Intent i = new Intent(Login.this, Parametros.class);
                 startActivity(i);
-                Toast.makeText(getApplicationContext(), "Inicio de sesión Correcto", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Inicio de sesión correcto", Toast.LENGTH_LONG).show();
                 pb.setVisibility(View.INVISIBLE);
                 botonCancel.setVisibility(View.VISIBLE);
                 botonQr.setVisibility(View.VISIBLE);
