@@ -1,6 +1,10 @@
 package com.example.primerapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +29,14 @@ public class Parametros extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parametros);
+
+        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = registerReceiver(null, ifilter);
+        int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+        float battery = (level / (float)scale)*100;
+        SimpleDialog msjBateria = new SimpleDialog("Información de la batería", "Nivel de Batería: ", String.valueOf(battery));
+        msjBateria.createSimpleDialog("Información de la batería", "Nivel de Batería: ", String.valueOf(battery));
 
         cantPersonas = findViewById(R.id.comboPersonas);
         ArrayAdapter<CharSequence> adapterPersonas = ArrayAdapter.createFromResource(this, R.array.personas, android.R.layout.simple_spinner_dropdown_item);

@@ -1,8 +1,10 @@
 package com.example.primerapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,11 +15,17 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Login extends AppCompatActivity {
     TextView email;
@@ -69,6 +77,7 @@ public class Login extends AppCompatActivity {
     // Asynctask ---------------------------------------------------------------------------------
     public class LoginTask extends android.os.AsyncTask<String, Void, Integer> {
 
+        @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         protected Integer doInBackground(String... params) {
             URL url = null;
@@ -96,6 +105,13 @@ public class Login extends AppCompatActivity {
                 int respCode = conn.getResponseCode();
                 String respMessage = conn.getResponseMessage();
                 System.out.println(respCode + " " + respMessage);
+
+                InputStream token = new BufferedInputStream(conn.getInputStream());
+                InputStreamReader inputStreamReader = new InputStreamReader(token);
+                Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
+                String streamToString = streamOfString.collect(Collectors.joining());
+                System.out.println(streamToString);
+
                 return respCode;
 
             } catch (IOException e) {
