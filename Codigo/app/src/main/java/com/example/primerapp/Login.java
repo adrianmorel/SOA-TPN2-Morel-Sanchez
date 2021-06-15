@@ -9,6 +9,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
+import android.util.JsonReader;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -27,8 +29,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 public class Login extends AppCompatActivity {
     TextView email;
@@ -38,6 +39,8 @@ public class Login extends AppCompatActivity {
     Button botonConf;
     Button botonQr;
     ProgressBar pb;
+    String token;
+    String token_refresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,12 +121,18 @@ public class Login extends AppCompatActivity {
                 String respMessage = conn.getResponseMessage();
                 System.out.println(respCode + " " + respMessage);
 
-                InputStream token = new BufferedInputStream(conn.getInputStream());
-                InputStreamReader inputStreamReader = new InputStreamReader(token);
-                Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
-                String streamToString = streamOfString.collect(Collectors.joining());
-                System.out.println(streamToString);
-
+                //Obteniendo el token
+                JsonReader reader = new JsonReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+                reader.beginObject();
+                reader.nextName();
+                Boolean success = reader.nextBoolean();
+                reader.nextName();
+                token = reader.nextString();
+                reader.nextName();
+                token_refresh = reader.nextString();
+                System.out.println("success: "+ success);
+                System.out.println("token: "+ token);
+                System.out.println("token_refresh: "+ token_refresh);
                 return respCode;
 
             } catch (IOException e) {
@@ -139,6 +148,8 @@ public class Login extends AppCompatActivity {
         protected void onPostExecute(Integer code) {
             if(code == 200){
                 Intent i = new Intent(Login.this, Parametros.class);
+                i.putExtra("token", token);
+                i.putExtra("token_refresh", token_refresh);
                 startActivity(i);
                 Toast.makeText(getApplicationContext(), "Inicio de sesión correcto", Toast.LENGTH_LONG).show();
                 pb.setVisibility(View.INVISIBLE);
