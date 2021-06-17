@@ -54,6 +54,11 @@ public class MenuApp extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void irAReporteDiario(View view) {
+        Intent intent = new Intent(this, ApiReporte.class);
+        startActivity(intent);
+    }
+
     // Asynctask ---------------------------------------------------------------------------------
     public class EventTask extends android.os.AsyncTask<String, Void, Integer> {
 
