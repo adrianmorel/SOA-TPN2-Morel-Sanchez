@@ -118,21 +118,23 @@ public class Login extends AppCompatActivity {
                 wr.flush();
                 conn.connect();
                 int respCode = conn.getResponseCode();
+                if(respCode == 200){
+                    //Obteniendo el token
+                    JsonReader reader = new JsonReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+                    reader.beginObject();
+                    reader.nextName();
+                    Boolean success = reader.nextBoolean();
+                    reader.nextName();
+                    token = reader.nextString();
+                    reader.nextName();
+                    token_refresh = reader.nextString();
+                    System.out.println("success: "+ success);
+                    System.out.println("token: "+ token);
+                    System.out.println("token_refresh: "+ token_refresh);
+                }
                 String respMessage = conn.getResponseMessage();
                 System.out.println(respCode + " " + respMessage);
 
-                //Obteniendo el token
-                JsonReader reader = new JsonReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-                reader.beginObject();
-                reader.nextName();
-                Boolean success = reader.nextBoolean();
-                reader.nextName();
-                token = reader.nextString();
-                reader.nextName();
-                token_refresh = reader.nextString();
-                System.out.println("success: "+ success);
-                System.out.println("token: "+ token);
-                System.out.println("token_refresh: "+ token_refresh);
                 return respCode;
 
             } catch (IOException e) {
@@ -147,7 +149,8 @@ public class Login extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer code) {
             if(code == 200){
-                Intent i = new Intent(Login.this, Parametros.class);
+
+                Intent i = new Intent(Login.this, MenuApp.class);
                 i.putExtra("token", token);
                 i.putExtra("token_refresh", token_refresh);
                 startActivity(i);

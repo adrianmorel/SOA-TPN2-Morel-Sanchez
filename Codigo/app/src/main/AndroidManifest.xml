@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Parametros"></activity>
+        <activity android:name=".MenuApp"></activity>
+        <activity android:name=".Parametros" />
         <activity android:name=".Registro" />
         <activity android:name=".Login" />
         <activity
