@@ -3,9 +3,15 @@ package com.example.primerapp;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.JsonReader;
+import android.view.View;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,14 +28,69 @@ import java.net.URL;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ApiReporte extends AppCompatActivity {
+public class ApiReporte extends AppCompatActivity implements SensorEventListener{
+
+    private final static float ACC = 30;
+    SensorManager sensor;
+    private TextView lblAgitar;
+    private  TextView lblReporte;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_api_reporte);
-        ReporteAPITask reporte = new ReporteAPITask();
-        reporte.execute();
+
+        sensor = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_UI);
+        lblAgitar = (TextView) findViewById(R.id.lblAgitar);
+        lblReporte = (TextView) findViewById(R.id.lblReporte);
+
+        //ReporteAPITask reporte = new ReporteAPITask();
+        //reporte.execute();
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        String txt = "\n\nSensor: ";
+
+        if ((Math.abs(event.values[0]) > ACC || Math.abs(event.values[1]) > ACC || Math.abs(event.values[2]) > ACC))
+        {
+            txt += "\n" + event.values[0];
+            System.out.println(txt);
+            txt += "\n" + event.values[1];
+            System.out.println(txt);
+            txt += "\n" + event.values[2];
+            System.out.println(txt);
+            lblAgitar.setVisibility(View.INVISIBLE);
+            lblReporte.setVisibility(View.VISIBLE);
+            lblReporte.setText("¡Bien chamaco!");
+
+        }
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
     }
 
     // Asynctask ---------------------------------------------------------------------------------
