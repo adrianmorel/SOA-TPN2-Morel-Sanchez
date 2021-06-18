@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.JsonReader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,8 +47,8 @@ public class ApiReporte extends AppCompatActivity {
             HttpURLConnection conn;
             try {
                 conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestProperty("x-rapidapi-key", "");
-                conn.setRequestProperty("x-rapidapi-host", "covidf962429069msh4509b9c676b5f63p10a40bjsn73daa23ab641-193.p.rapidapi.com");
+                conn.setRequestProperty("x-rapidapi-key", "f962429069msh4509b9c676b5f63p10a40bjsn73daa23ab641");
+                conn.setRequestProperty("x-rapidapi-host", "covid-193.p.rapidapi.com");
 
                 int respCode = conn.getResponseCode();
                 String respMessage = conn.getResponseMessage();
@@ -58,7 +59,10 @@ public class ApiReporte extends AppCompatActivity {
                 Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
                 String streamToString = streamOfString.collect(Collectors.joining());
                 System.out.println(streamToString);
-
+                String cadenaCortada = streamToString.substring(streamToString.indexOf("\"cases"), streamToString.indexOf(",\"tests"));
+                System.out.println(cadenaCortada);
+                String nuevosCasos = cadenaCortada.substring(cadenaCortada.indexOf("new")+6,cadenaCortada.indexOf("active")-3);
+                System.out.println("Nuevos Casos: "+ nuevosCasos);
                 return respCode;
 
             } catch (IOException e) {
