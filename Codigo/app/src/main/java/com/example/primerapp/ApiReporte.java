@@ -154,10 +154,23 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
                 Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
                 String streamToString = streamOfString.collect(Collectors.joining());
                 System.out.println(streamToString);
-                String cadenaCortada = streamToString.substring(streamToString.indexOf("\"cases"), streamToString.indexOf(",\"tests"));
+                String cadenaCortada = streamToString.substring(streamToString.indexOf("\"cases"), streamToString.indexOf("\"deaths"));
                 System.out.println(cadenaCortada);
                 String nuevosCasos = cadenaCortada.substring(cadenaCortada.indexOf("new")+6,cadenaCortada.indexOf("active")-3);
                 System.out.println("Nuevos Casos: "+ nuevosCasos);
+                String activos = streamToString.substring(streamToString.indexOf("\"active") + 9, streamToString.indexOf(",\"critical"));
+                System.out.println("Activos: "+ activos);
+                String criticos = streamToString.substring(streamToString.indexOf("\"critical") + 11, streamToString.indexOf(",\"recovered"));
+                System.out.println("Criticos: "+ criticos);
+                String recuperados = cadenaCortada.substring(cadenaCortada.indexOf("recovered")+ 11,cadenaCortada.indexOf("1M_pop")-2);
+                System.out.println("Recuperados: "+ recuperados);
+                String total = cadenaCortada.substring(cadenaCortada.indexOf("total")+ 6,cadenaCortada.lastIndexOf("}"));
+                System.out.println("Total: "+ total);
+                String cadenaCortada2 = streamToString.substring(streamToString.indexOf("\"deaths"), streamToString.indexOf(",\"tests"));
+                String muertes = cadenaCortada2.substring(cadenaCortada2.indexOf("new")+ 6,cadenaCortada2.indexOf("1M_pop")-3);
+                System.out.println("Muertes: "+ muertes);
+                String totalMuertes = cadenaCortada2.substring(cadenaCortada2.indexOf("total")+ 6,cadenaCortada2.lastIndexOf("}"));
+                System.out.println("Total Muertes: "+ totalMuertes);
                 return respCode;
 
             } catch (IOException e) {
