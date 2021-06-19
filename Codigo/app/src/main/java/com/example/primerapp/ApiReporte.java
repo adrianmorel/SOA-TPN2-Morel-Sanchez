@@ -3,28 +3,27 @@ package com.example.primerapp;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.JsonReader;
 import android.view.View;
 import android.widget.TextView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -34,6 +33,7 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
     SensorManager sensor;
     private TextView lblAgitar;
     private  TextView lblReporte;
+    private  TextView lblInfoAPI;
 
 
     @Override
@@ -45,9 +45,7 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
         sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_UI);
         lblAgitar = (TextView) findViewById(R.id.lblAgitar);
         lblReporte = (TextView) findViewById(R.id.lblReporte);
-
-        //ReporteAPITask reporte = new ReporteAPITask();
-        //reporte.execute();
+        lblInfoAPI = (TextView) findViewById(R.id.textoInfo);
     }
 
     @Override
@@ -64,7 +62,9 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
             System.out.println(txt);
             lblAgitar.setVisibility(View.INVISIBLE);
             lblReporte.setVisibility(View.VISIBLE);
-            lblReporte.setText("¡Bien chamaco!");
+            lblInfoAPI.setVisibility(View.VISIBLE);
+            ReporteAPITask reporte = new ReporteAPITask();
+            reporte.execute();
 
         }
 
@@ -94,14 +94,23 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
     }
 
     // Asynctask ---------------------------------------------------------------------------------
-    public class ReporteAPITask extends android.os.AsyncTask<String, Void, Integer> {
+    public class ReporteAPITask extends android.os.AsyncTask<String, Void, String> {
 
         @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
-        protected Integer doInBackground(String... params) {
+        protected String doInBackground(String... params) {
+            Date date = new Date(); // your date
+            // Choose time zone in which you want to interpret your Date
+            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+            cal.setTime(date);
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+            String link = "https://covid-193.p.rapidapi.com/history?country=Argentina&day="+year+"-"+"0"+(month+1)+"-"+day;
+            System.out.println(link);
             URL url = null;
             try {
-                url = new URL("https://covid-193.p.rapidapi.com/history?country=Argentina&day=2021-06-17");
+                url = new URL(link);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -114,30 +123,27 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
                 int respCode = conn.getResponseCode();
                 String respMessage = conn.getResponseMessage();
                 System.out.println(respCode + " " + respMessage);
-
                 InputStream response = new BufferedInputStream(conn.getInputStream());
                 InputStreamReader inputStreamReader = new InputStreamReader(response);
                 Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
                 String streamToString = streamOfString.collect(Collectors.joining());
-                System.out.println(streamToString);
                 String cadenaCortada = streamToString.substring(streamToString.indexOf("\"cases"), streamToString.indexOf("\"deaths"));
-                System.out.println(cadenaCortada);
                 String nuevosCasos = cadenaCortada.substring(cadenaCortada.indexOf("new")+6,cadenaCortada.indexOf("active")-3);
-                System.out.println("Nuevos Casos: "+ nuevosCasos);
                 String activos = streamToString.substring(streamToString.indexOf("\"active") + 9, streamToString.indexOf(",\"critical"));
-                System.out.println("Activos: "+ activos);
                 String criticos = streamToString.substring(streamToString.indexOf("\"critical") + 11, streamToString.indexOf(",\"recovered"));
-                System.out.println("Criticos: "+ criticos);
                 String recuperados = cadenaCortada.substring(cadenaCortada.indexOf("recovered")+ 11,cadenaCortada.indexOf("1M_pop")-2);
-                System.out.println("Recuperados: "+ recuperados);
-                String total = cadenaCortada.substring(cadenaCortada.indexOf("total")+ 6,cadenaCortada.lastIndexOf("}"));
-                System.out.println("Total: "+ total);
+                String total = cadenaCortada.substring(cadenaCortada.indexOf("total")+ 7,cadenaCortada.lastIndexOf("}"));
                 String cadenaCortada2 = streamToString.substring(streamToString.indexOf("\"deaths"), streamToString.indexOf(",\"tests"));
                 String muertes = cadenaCortada2.substring(cadenaCortada2.indexOf("new")+ 6,cadenaCortada2.indexOf("1M_pop")-3);
-                System.out.println("Muertes: "+ muertes);
-                String totalMuertes = cadenaCortada2.substring(cadenaCortada2.indexOf("total")+ 6,cadenaCortada2.lastIndexOf("}"));
-                System.out.println("Total Muertes: "+ totalMuertes);
-                return respCode;
+                String totalMuertes = cadenaCortada2.substring(cadenaCortada2.indexOf("total")+ 7,cadenaCortada2.lastIndexOf("}"));
+                String reporte = "Nuevos Casos: "+ nuevosCasos + "\n"
+                        + "Activos: "+"\t"+ activos + "\n"
+                        + "Criticos: "+"\t"+ criticos + "\n"
+                        + "Recuperados: "+"\t"+ recuperados + "\n"
+                        + "Muertes: "+"\t"+ muertes + "\n"
+                        + "Total Muertes: "+"\t"+ totalMuertes + "\n"
+                        + "Total: "+"\t"+ total;
+                return reporte;
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -146,6 +152,11 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
             return null;
         }
 
+        @Override
+        protected void onPostExecute(String s) {
+            lblReporte.setText(s);
+            lblReporte.setTextColor(Color.RED);
+        }
     }
 
 }
