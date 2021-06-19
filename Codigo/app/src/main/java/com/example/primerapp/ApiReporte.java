@@ -49,9 +49,12 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_api_reporte);
+
         sensor = (SensorManager) getSystemService(SENSOR_SERVICE);
-        sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
-        sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_NORMAL);
+        sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_UI);
+      //  sensor = (SensorManager) getSystemService(SENSOR_SERVICE);
+      //  sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+      //  sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_NORMAL);
 
         lblAgitar = (TextView) findViewById(R.id.lblAgitar);
         lblReporte = (TextView) findViewById(R.id.lblReporte);
@@ -63,7 +66,23 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
     @Override
     public void onSensorChanged(SensorEvent event) {
         String txt = "\n\nSensor: ";
+        
+        if ((Math.abs(event.values[0]) > ACC || Math.abs(event.values[1]) > ACC || Math.abs(event.values[2]) > ACC)) {
+            txt += "\n" + event.values[0];
+            System.out.println(txt);
+            txt += "\n" + event.values[1];
+            System.out.println(txt);
+            txt += "\n" + event.values[2];
+            System.out.println(txt);
+            lblAgitar.setVisibility(View.INVISIBLE);
+            lblReporte.setVisibility(View.VISIBLE);
+            lblInfoAPI.setVisibility(View.VISIBLE);
+            lblHead.setVisibility(View.VISIBLE);
+            imagenCov.setVisibility(View.VISIBLE);
+            ReporteAPITask reporte = new ReporteAPITask();
+            reporte.execute();
 
+        }/*
         synchronized (this) {
             switch (event.sensor.getType()) {
                 case Sensor.TYPE_ACCELEROMETER:
@@ -106,7 +125,7 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
                     }
                     break;
             }
-        }
+        }*/
 
     }
 
@@ -119,7 +138,7 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
     protected void onResume() {
         super.onResume();
         sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
-        sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_NORMAL);
+     //   sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_NORMAL);
 
     }
 
@@ -127,14 +146,14 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
     protected void onPause() {
         super.onPause();
         sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
-        sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT));
+      //  sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
-        sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT));
+     //   sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT));
     }
 
 
@@ -147,7 +166,7 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
         protected String doInBackground(String... params) {
             Date date = new Date(); // your date
             // Choose time zone in which you want to interpret your Date
-            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+            Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("America/Argentina"));
             cal.setTime(date);
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH);
@@ -173,6 +192,7 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
                 InputStreamReader inputStreamReader = new InputStreamReader(response);
                 Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
                 String streamToString = streamOfString.collect(Collectors.joining());
+                System.out.println(streamToString);
                 String cadenaCortada = streamToString.substring(streamToString.indexOf("\"cases"), streamToString.indexOf("\"deaths"));
                 String nuevosCasos = cadenaCortada.substring(cadenaCortada.indexOf("new")+6,cadenaCortada.indexOf("active")-3);
                 String activos = streamToString.substring(streamToString.indexOf("\"active") + 9, streamToString.indexOf(",\"critical"));
