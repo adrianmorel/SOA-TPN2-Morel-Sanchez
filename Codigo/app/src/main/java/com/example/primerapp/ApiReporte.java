@@ -136,12 +136,12 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
                 String cadenaCortada2 = streamToString.substring(streamToString.indexOf("\"deaths"), streamToString.indexOf(",\"tests"));
                 String muertes = cadenaCortada2.substring(cadenaCortada2.indexOf("new")+ 6,cadenaCortada2.indexOf("1M_pop")-3);
                 String totalMuertes = cadenaCortada2.substring(cadenaCortada2.indexOf("total")+ 7,cadenaCortada2.lastIndexOf("}"));
-                String reporte = "Nuevos Casos: "+ nuevosCasos + "\n"
-                        + "Activos: "+"\t"+ activos + "\n"
-                        + "Criticos: "+"\t"+ criticos + "\n"
-                        + "Recuperados: "+"\t"+ recuperados + "\n"
-                        + "Muertes: "+"\t"+ muertes + "\n"
-                        + "Total Muertes: "+"\t"+ totalMuertes + "\n"
+                String reporte = "Nuevos Casos: "+ nuevosCasos + "\n\n"
+                        + "Activos: "+"\t"+ activos + "\n\n"
+                        + "Criticos: "+"\t"+ criticos + "\n\n"
+                        + "Recuperados: "+"\t"+ recuperados + "\n\n"
+                        + "Muertes: "+"\t"+ muertes + "\n\n"
+                        + "Total Muertes: "+"\t"+ totalMuertes + "\n\n"
                         + "Total: "+"\t"+ total;
                 return reporte;
 
@@ -155,7 +155,6 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
         @Override
         protected void onPostExecute(String s) {
             lblReporte.setText(s);
-            lblReporte.setTextColor(Color.RED);
         }
     }
 
