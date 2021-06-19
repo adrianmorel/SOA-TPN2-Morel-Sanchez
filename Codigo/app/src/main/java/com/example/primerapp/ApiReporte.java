@@ -3,21 +3,26 @@ package com.example.primerapp;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.Color;
+import android.annotation.SuppressLint;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.JsonReader;
 import android.view.View;
 import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -40,7 +45,6 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_api_reporte);
-
         sensor = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_UI);
         lblAgitar = (TextView) findViewById(R.id.lblAgitar);
@@ -93,7 +97,7 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
         sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
     }
 
-    // Asynctask ---------------------------------------------------------------------------------
+    // Asynctasks ---------------------------------------------------------------------------------
     public class ReporteAPITask extends android.os.AsyncTask<String, Void, String> {
 
         @RequiresApi(api = Build.VERSION_CODES.N)

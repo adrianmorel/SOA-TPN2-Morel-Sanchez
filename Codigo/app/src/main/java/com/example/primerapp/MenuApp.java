@@ -60,6 +60,8 @@ public class MenuApp extends AppCompatActivity {
 
     public void irACalculadora(View view) {
         Intent intent = new Intent(this, Parametros.class);
+        intent.putExtra("token", token);
+        intent.putExtra("token_refresh", token_refresh);
         startActivity(intent);
     }
 
