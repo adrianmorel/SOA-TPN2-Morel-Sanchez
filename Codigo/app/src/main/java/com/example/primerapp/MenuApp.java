@@ -22,7 +22,9 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -44,13 +46,22 @@ public class MenuApp extends AppCompatActivity {
         float battery = (level / (float)scale)*100;
         new SimpleDialog().show(getSupportFragmentManager(), String.valueOf(battery));
         Date objDate = new Date();
-
+        Date date = new Date(); // your date
+        // Choose time zone in which you want to interpret your Date
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+        cal.setTime(date);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
         EventTask registrarEvento = new EventTask();
-        registrarEvento.execute("Login correcto", "Hora: "+ objDate.getHours() + ":"+ objDate.getMinutes(), token);
+        registrarEvento.execute("Login correcto", "Fecha y Hora: "+ day + "-" + month + "-" + year +
+                                " " + objDate.getHours() + ":"+ objDate.getMinutes(), token);
     }
 
     public void irACalculadora(View view) {
         Intent intent = new Intent(this, Calculadora.class);
+        intent.putExtra("token", token);
+        intent.putExtra("token_refresh", token_refresh);
         startActivity(intent);
     }
 
