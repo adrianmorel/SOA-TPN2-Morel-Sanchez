@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.JsonReader;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -39,6 +40,8 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
     private TextView lblAgitar;
     private  TextView lblReporte;
     private  TextView lblInfoAPI;
+    private  TextView lblHead;
+    private ImageView imagenCov;
 
 
     @Override
@@ -50,6 +53,8 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
         lblAgitar = (TextView) findViewById(R.id.lblAgitar);
         lblReporte = (TextView) findViewById(R.id.lblReporte);
         lblInfoAPI = (TextView) findViewById(R.id.textoInfo);
+        lblHead = (TextView) findViewById(R.id.textHead);
+        imagenCov = (ImageView) findViewById(R.id.imagenCovid19);
     }
 
     @Override
@@ -67,6 +72,8 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
             lblAgitar.setVisibility(View.INVISIBLE);
             lblReporte.setVisibility(View.VISIBLE);
             lblInfoAPI.setVisibility(View.VISIBLE);
+            lblHead.setVisibility(View.VISIBLE);
+            imagenCov.setVisibility(View.VISIBLE);
             ReporteAPITask reporte = new ReporteAPITask();
             reporte.execute();
 
