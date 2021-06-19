@@ -48,7 +48,7 @@ public class MenuApp extends AppCompatActivity {
         Date objDate = new Date();
         Date date = new Date(); // your date
         // Choose time zone in which you want to interpret your Date
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("America/Argentina"));
         cal.setTime(date);
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);

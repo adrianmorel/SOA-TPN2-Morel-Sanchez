@@ -28,6 +28,7 @@ public class Tip extends AppCompatActivity implements SensorEventListener {
 
         sensor = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_PROXIMITY), SensorManager.SENSOR_DELAY_NORMAL);
+        sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_NORMAL);
 
         lblIndicacion = (TextView) findViewById(R.id.lblIndicacion);
         lblTip = (TextView) findViewById(R.id.lblTip);
@@ -48,12 +49,41 @@ public class Tip extends AppCompatActivity implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        if(event.values[0] == 0){
-            int rnd = (int) (Math.random()*9+1);
-            System.out.println("El nro elegido es:" + rnd);
-            tip = listaDeTips.get(rnd);
-            lblTip.setText(tip);
+        String txt = "\n\nSensor: ";
+        synchronized (this) {
+            switch (event.sensor.getType()) {
+                case Sensor.TYPE_PROXIMITY:
+
+                    if(event.values[0] == 0){
+                        int rnd = (int) (Math.random()*10);
+                        System.out.println("El nro elegido es:" + rnd);
+                        tip = listaDeTips.get(rnd);
+                        lblTip.setText(tip);
+                    }
+                    break;
+
+                case Sensor.TYPE_LIGHT:
+
+                    txt += "\nLuz: ";
+                    txt += event.values[0] + "Lux \n";
+                    System.out.println(txt);
+
+                    if(event.values[0] < 100.0){
+                        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+                        layoutParams.screenBrightness = 1.0f;
+                        getWindow().setAttributes(layoutParams);
+                        Toast.makeText(getApplicationContext(), "Ajustando brillo", Toast.LENGTH_LONG).show();
+                    }
+                    if(event.values[0] > 1000.0){
+                        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+                        layoutParams.screenBrightness = 0.1f;
+                        getWindow().setAttributes(layoutParams);
+                        Toast.makeText(getApplicationContext(), "Ajustando brillo", Toast.LENGTH_LONG).show();
+                    }
+                    break;
+            }
         }
+
     }
 
     @Override
@@ -65,17 +95,20 @@ public class Tip extends AppCompatActivity implements SensorEventListener {
     public void onResume() {
         super.onResume();
         sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_PROXIMITY), SensorManager.SENSOR_DELAY_NORMAL);
+        sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_PROXIMITY));
+        sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT));
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_PROXIMITY));
+        sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT));
     }
 }
