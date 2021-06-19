@@ -50,12 +50,17 @@ public class MenuApp extends AppCompatActivity {
     }
 
     public void irACalculadora(View view) {
-        Intent intent = new Intent(this, Parametros.class);
+        Intent intent = new Intent(this, Calculadora.class);
         startActivity(intent);
     }
 
     public void irAReporteDiario(View view) {
         Intent intent = new Intent(this, ApiReporte.class);
+        startActivity(intent);
+    }
+
+    public void irATips(View view) {
+        Intent intent = new Intent(this, Tip.class);
         startActivity(intent);
     }
 

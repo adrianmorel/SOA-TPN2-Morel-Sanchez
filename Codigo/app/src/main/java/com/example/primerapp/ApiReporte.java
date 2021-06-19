@@ -3,25 +3,26 @@ package com.example.primerapp;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.JsonReader;
+import android.provider.Settings;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.SeekBar;
 import android.widget.TextView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -31,9 +32,9 @@ import java.util.stream.Stream;
 public class ApiReporte extends AppCompatActivity implements SensorEventListener{
 
     private final static float ACC = 30;
-    SensorManager sensor;
+    private SensorManager sensor;
     private TextView lblAgitar;
-    private  TextView lblReporte;
+    private TextView lblReporte;
 
 
     @Override
@@ -42,7 +43,9 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
         setContentView(R.layout.activity_api_reporte);
 
         sensor = (SensorManager) getSystemService(SENSOR_SERVICE);
-        sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_UI);
+        sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_NORMAL);
+
         lblAgitar = (TextView) findViewById(R.id.lblAgitar);
         lblReporte = (TextView) findViewById(R.id.lblReporte);
 
@@ -54,18 +57,43 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
     public void onSensorChanged(SensorEvent event) {
         String txt = "\n\nSensor: ";
 
-        if ((Math.abs(event.values[0]) > ACC || Math.abs(event.values[1]) > ACC || Math.abs(event.values[2]) > ACC))
-        {
-            txt += "\n" + event.values[0];
-            System.out.println(txt);
-            txt += "\n" + event.values[1];
-            System.out.println(txt);
-            txt += "\n" + event.values[2];
-            System.out.println(txt);
-            lblAgitar.setVisibility(View.INVISIBLE);
-            lblReporte.setVisibility(View.VISIBLE);
-            lblReporte.setText("¡Bien chamaco!");
+        synchronized (this) {
+            switch (event.sensor.getType()) {
+                case Sensor.TYPE_ACCELEROMETER:
 
+                    if ((Math.abs(event.values[0]) > ACC || Math.abs(event.values[1]) > ACC || Math.abs(event.values[2]) > ACC)) {
+                        txt += "\n" + event.values[0];
+                        System.out.println(txt);
+                        txt += "\n" + event.values[1];
+                        System.out.println(txt);
+                        txt += "\n" + event.values[2];
+                        System.out.println(txt);
+                        lblAgitar.setVisibility(View.INVISIBLE);
+                        lblReporte.setVisibility(View.VISIBLE);
+                        lblReporte.setText(txt);
+                    }
+                    break;
+
+                case Sensor.TYPE_LIGHT:
+
+                    txt += "\nLuz: ";
+                    txt += event.values[0] + "Lux \n";
+                    System.out.println(txt);
+
+                    if(event.values[0] < 100.0){
+                        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+                        layoutParams.screenBrightness = 1.0f;
+                        getWindow().setAttributes(layoutParams);
+                        Toast.makeText(getApplicationContext(), "Ajustando brillo", Toast.LENGTH_LONG).show();
+                    }
+                    if(event.values[0] > 1000.0){
+                        WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+                        layoutParams.screenBrightness = 0.1f;
+                        getWindow().setAttributes(layoutParams);
+                        Toast.makeText(getApplicationContext(), "Ajustando brillo", Toast.LENGTH_LONG).show();
+                    }
+                    break;
+            }
         }
 
     }
@@ -79,19 +107,25 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
     protected void onResume() {
         super.onResume();
         sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_NORMAL);
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+        sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+        sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT));
     }
+
+
 
     // Asynctask ---------------------------------------------------------------------------------
     public class ReporteAPITask extends android.os.AsyncTask<String, Void, Integer> {

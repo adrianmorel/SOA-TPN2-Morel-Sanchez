@@ -14,9 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ApiReporte"></activity>
+        <activity android:name=".Tip"></activity>
+        <activity android:name=".ApiReporte" />
         <activity android:name=".MenuApp" />
-        <activity android:name=".Parametros" />
+        <activity android:name=".Calculadora" />
         <activity android:name=".Registro" />
         <activity android:name=".Login" />
         <activity
