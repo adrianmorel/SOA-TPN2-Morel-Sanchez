@@ -32,6 +32,8 @@ public class MenuApp extends AppCompatActivity {
 
     String token;
     String token_refresh;
+    private static final int difMes = 1;
+    private static final int escalaBateria = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,7 @@ public class MenuApp extends AppCompatActivity {
         Intent batteryStatus = registerReceiver(null, ifilter);
         int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
         int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-        float battery = (level / (float)scale)*100;
+        float battery = (level / (float)scale)*escalaBateria;
         new SimpleDialog().show(getSupportFragmentManager(), String.valueOf(battery));
         Date objDate = new Date();
         Date date = new Date(); // your date
@@ -54,7 +56,7 @@ public class MenuApp extends AppCompatActivity {
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
         EventTask registrarEvento = new EventTask();
-        registrarEvento.execute("Login correcto", "Fecha y Hora: "+ day + "-" + month + "-" + year +
+        registrarEvento.execute("Login correcto", "Fecha y Hora: "+ day + "-" + (month+difMes) + "-" + year +
                                 " " + objDate.getHours() + ":"+ objDate.getMinutes(), token);
     }
 
@@ -105,20 +107,12 @@ public class MenuApp extends AppCompatActivity {
                 json.put("env", "TEST");
                 json.put("type_events", params[0]);
                 json.put("description", params[1]);
-                System.out.println(json);
                 OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
                 wr.write(json.toString());
                 wr.flush();
                 conn.connect();
                 int respCode = conn.getResponseCode();
                 String respMessage = conn.getResponseMessage();
-                System.out.println(respCode + " " + respMessage);
-
-                InputStream response = new BufferedInputStream(conn.getInputStream());
-                InputStreamReader inputStreamReader = new InputStreamReader(response);
-                Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
-                String streamToString = streamOfString.collect(Collectors.joining());
-                System.out.println(streamToString);
 
                 return respCode;
 

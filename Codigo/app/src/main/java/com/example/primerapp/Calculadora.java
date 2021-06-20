@@ -5,10 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.annotation.SuppressLint;
-import android.content.res.AssetManager;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.JsonReader;
@@ -33,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -58,6 +53,7 @@ public class Calculadora extends AppCompatActivity {
     String token;
     String token_refresh;
     int year, month, day;
+    private static final int tokenVencido = 401;
     Date objDate;
 
     @Override
@@ -179,20 +175,12 @@ public class Calculadora extends AppCompatActivity {
                 json.put("env", "TEST");
                 json.put("type_events", params[0]);
                 json.put("description", params[1]);
-                System.out.println(json);
                 OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
                 wr.write(json.toString());
                 wr.flush();
                 conn.connect();
                 int respCode = conn.getResponseCode();
                 String respMessage = conn.getResponseMessage();
-                System.out.println(respCode + " " + respMessage);
-
-                InputStream response = new BufferedInputStream(conn.getInputStream());
-                InputStreamReader inputStreamReader = new InputStreamReader(response);
-                Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
-                String streamToString = streamOfString.collect(Collectors.joining());
-                System.out.println(streamToString);
 
                 return respCode;
 
@@ -207,7 +195,7 @@ public class Calculadora extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Integer respuesta) {
-            if(respuesta == 401){
+            if(respuesta == tokenVencido){
                 RefrescarToken actualizarToken = new RefrescarToken();
                 actualizarToken.execute();
             }
@@ -239,7 +227,6 @@ public class Calculadora extends AppCompatActivity {
                 conn.connect();
                 int respCode = conn.getResponseCode();
                 String respMessage = conn.getResponseMessage();
-                System.out.println(respCode + " " + respMessage);
                 if(respCode == 200){
                     //Obteniendo el token
                     JsonReader reader = new JsonReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
@@ -250,19 +237,11 @@ public class Calculadora extends AppCompatActivity {
                     token = reader.nextString();
                     reader.nextName();
                     token_refresh = reader.nextString();
-                    System.out.println("success: "+ success);
-                    System.out.println("token: "+ token);
-                    System.out.println("token_refresh: "+ token_refresh);
                     RegistrarEvento registro = new RegistrarEvento();
                     registro.execute("Consulta de reporte diario", "Fecha y Hora: "+ day + "-" + month + "-" + year +
                             " " + objDate.getHours() + ":"+ objDate.getMinutes(), token, token_refresh);
                 }
 
-                InputStream response = new BufferedInputStream(conn.getInputStream());
-                InputStreamReader inputStreamReader = new InputStreamReader(response);
-                Stream<String> streamOfString= new BufferedReader(inputStreamReader).lines();
-                String streamToString = streamOfString.collect(Collectors.joining());
-                System.out.println(streamToString);
 
                 return respCode;
 

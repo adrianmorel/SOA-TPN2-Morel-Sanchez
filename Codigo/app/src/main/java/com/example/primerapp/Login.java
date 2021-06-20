@@ -41,6 +41,8 @@ public class Login extends AppCompatActivity {
     ProgressBar pb;
     String token;
     String token_refresh;
+    Integer internet;
+    public static final int ok = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +78,7 @@ public class Login extends AppCompatActivity {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
-            System.out.println("Conexion a internet ok");
+            internet = ok;
         } else {
             Toast.makeText(getApplicationContext(), "No hay conexion a internet, revise su estado de red e intentelo nuevamente", Toast.LENGTH_LONG).show();
             return;
@@ -112,7 +114,6 @@ public class Login extends AppCompatActivity {
                 JSONObject json = new JSONObject();
                 json.put("email", params[0]);
                 json.put("password", params[1]);
-                System.out.println(json);
                 OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
                 wr.write(json.toString());
                 wr.flush();
@@ -128,12 +129,8 @@ public class Login extends AppCompatActivity {
                     token = reader.nextString();
                     reader.nextName();
                     token_refresh = reader.nextString();
-                    System.out.println("success: "+ success);
-                    System.out.println("token: "+ token);
-                    System.out.println("token_refresh: "+ token_refresh);
                 }
                 String respMessage = conn.getResponseMessage();
-                System.out.println(respCode + " " + respMessage);
 
                 return respCode;
 

@@ -9,29 +9,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.primerapp.SimpleDialog;
-import com.google.android.material.snackbar.Snackbar;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 
 public class Registro extends AppCompatActivity {
 
@@ -43,6 +33,7 @@ public class Registro extends AppCompatActivity {
      TextView dni;
      Button botonConf;
      ProgressBar pb;
+     private static final int ok = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +109,6 @@ public class Registro extends AppCompatActivity {
         @Override
         protected Integer doInBackground(String... params) {
             URL url = null;
-            System.out.println(params.toString());
             try {
                 url = new URL("http://so-unlam.net.ar/api/api/register");
             } catch (MalformedURLException e) {
@@ -132,7 +122,6 @@ public class Registro extends AppCompatActivity {
                 conn.setDoOutput(true);
                 conn.setDoInput(true);
                 conn.setConnectTimeout(5000);
-                System.out.println(params.length);
                 JSONObject json = new JSONObject();
                 json.put("env", "TEST");
                 json.put("name", params[0]);
@@ -142,7 +131,6 @@ public class Registro extends AppCompatActivity {
                 json.put("password", params[4]);
                 json.put("commission", new Integer(2900));
                 json.put("group", new Integer(11));
-                System.out.println(json);
                 OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
                 wr.write(json.toString());
                 wr.flush();
@@ -161,7 +149,7 @@ public class Registro extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Integer result) {
-            if(result == 200){
+            if(result == ok){
                 Toast.makeText(getApplicationContext(), "¡Registrado exitosamente!", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(Registro.this, Login.class);
                 startActivity(intent);

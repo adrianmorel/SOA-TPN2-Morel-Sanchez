@@ -128,7 +128,6 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
             int month = cal.get(Calendar.MONTH);
             int day = cal.get(Calendar.DAY_OF_MONTH);
             String link = "https://covid-193.p.rapidapi.com/history?country=Argentina&day="+year+"-"+"0"+(month+1)+"-"+day;
-            System.out.println(link);
             URL url = null;
             try {
                 url = new URL(link);
