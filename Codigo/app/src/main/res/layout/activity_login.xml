@@ -73,26 +73,14 @@
         app:layout_constraintTop_toBottomOf="@+id/inUsuario" />
 
     <Button
-        android:id="@+id/btnCancelarLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="30dp"
-        android:text="Cancelar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/InContraseña" />
-
-    <Button
         android:id="@+id/btnConfirmarLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginRight="70dp"
         android:onClick="confirmarInicio"
         android:text="Confirmar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/InContraseña" />
 
     <TextView

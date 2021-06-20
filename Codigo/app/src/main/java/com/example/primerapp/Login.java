@@ -35,7 +35,6 @@ public class Login extends AppCompatActivity {
     TextView email;
     TextView pass;
     TextView lbl;
-    Button botonCancel;
     Button botonConf;
     Button botonQr;
     ProgressBar pb;
@@ -61,7 +60,6 @@ public class Login extends AppCompatActivity {
         email = (TextView) findViewById(R.id.inUsuario);
         pass = (TextView) findViewById(R.id.InContraseña);
         botonConf = (Button) findViewById(R.id.btnConfirmarLogin);
-        botonCancel = (Button) findViewById(R.id.btnCancelarLogin);
         pb = (ProgressBar) findViewById(R.id.progressBarLogin);
         botonQr = (Button) findViewById(R.id.btnRegistro);
         lbl = (TextView) findViewById(R.id.lblNoUser);
@@ -86,7 +84,6 @@ public class Login extends AppCompatActivity {
         pb.setVisibility(View.VISIBLE);
         lg.execute(email.getText().toString(), pass.getText().toString());
         botonConf.setVisibility(View.INVISIBLE);
-        botonCancel.setVisibility(View.INVISIBLE);
         botonQr.setVisibility(View.INVISIBLE);
         lbl.setText("Iniciando Sesión...");
     }
@@ -153,7 +150,6 @@ public class Login extends AppCompatActivity {
                 startActivity(i);
                 Toast.makeText(getApplicationContext(), "Inicio de sesión correcto", Toast.LENGTH_LONG).show();
                 pb.setVisibility(View.INVISIBLE);
-                botonCancel.setVisibility(View.VISIBLE);
                 botonQr.setVisibility(View.VISIBLE);
                 botonConf.setVisibility(View.VISIBLE);
                 lbl.setText("¿No tienes usuario?");
@@ -161,7 +157,6 @@ public class Login extends AppCompatActivity {
             else {
                 Toast.makeText(getApplicationContext(), "Error Bad Request - " + code + ", revise sus datos e ingreselos nuevamente", Toast.LENGTH_LONG).show();
                 pb.setVisibility(View.INVISIBLE);
-                botonCancel.setVisibility(View.VISIBLE);
                 botonQr.setVisibility(View.VISIBLE);
                 botonConf.setVisibility(View.VISIBLE);
                 lbl.setText("¿No tienes usuario?");
