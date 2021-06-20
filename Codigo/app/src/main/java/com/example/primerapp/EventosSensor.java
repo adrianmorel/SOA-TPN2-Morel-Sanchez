@@ -43,8 +43,8 @@ public class EventosSensor extends AppCompatActivity {
         String valorCoordZ = (String) mapaSensores.get("Lectura acelerometro eje Z");
         String valorSuscAcel = (String) mapaSensores.get("Listener acelerometro");
         fila2Col2.setText(valorSensadoDist + " cm");
-        fila3Col2.setText(valorSensadoLuz + " lum");
-        fila4Col2.setText(valorSuscDist);
+        fila4Col2.setText(valorSensadoLuz + " lum");
+        fila3Col2.setText(valorSuscDist);
         fila5Col2.setText(valorSuscLuz);
         fila6Col2.setText(valorCoordX);
         fila7Col2.setText(valorCoordY);
