@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:text="Acerca tu mano al sensor de proximidad para ver un tip"
+        android:textColor="#009688"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,8 +23,11 @@
         android:id="@+id/lblTip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="88dp"
+        android:textColor="#009688"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblIndicacion" />
 </androidx.constraintlayout.widget.ConstraintLayout>

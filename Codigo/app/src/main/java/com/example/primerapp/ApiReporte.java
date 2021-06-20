@@ -36,7 +36,7 @@ import java.util.stream.Stream;
 
 public class ApiReporte extends AppCompatActivity implements SensorEventListener{
 
-    private final static float ACC = 3;
+    private final static float ACC = 30;
     private SensorManager sensor;
     private TextView lblAgitar;
     private  TextView lblReporte;
@@ -111,7 +111,12 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
     // Asynctasks ---------------------------------------------------------------------------------
     public class ReporteAPITask extends android.os.AsyncTask<String, Void, String> {
 
-
+        private final static int lecturaJsonRec = 2;
+        private final static int lecturaJsonBack = 3;
+        private final static int lecturaJsonNew = 6;
+        private final static int lecturaJsonTot = 7;
+        private final static int lecturaJsonAct = 9;
+        private final static int lecturaJsonCrtRe = 11;
         @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         protected String doInBackground(String... params) {
@@ -145,14 +150,14 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
                 String streamToString = streamOfString.collect(Collectors.joining());
                 System.out.println(streamToString);
                 String cadenaCortada = streamToString.substring(streamToString.indexOf("\"cases"), streamToString.indexOf("\"deaths"));
-                String nuevosCasos = cadenaCortada.substring(cadenaCortada.indexOf("new")+6,cadenaCortada.indexOf("active")-3);
-                String activos = streamToString.substring(streamToString.indexOf("\"active") + 9, streamToString.indexOf(",\"critical"));
-                String criticos = streamToString.substring(streamToString.indexOf("\"critical") + 11, streamToString.indexOf(",\"recovered"));
-                String recuperados = cadenaCortada.substring(cadenaCortada.indexOf("recovered")+ 11,cadenaCortada.indexOf("1M_pop")-2);
-                String total = cadenaCortada.substring(cadenaCortada.indexOf("total")+ 7,cadenaCortada.lastIndexOf("}"));
+                String nuevosCasos = cadenaCortada.substring(cadenaCortada.indexOf("new")+lecturaJsonNew,cadenaCortada.indexOf("active")-lecturaJsonBack);
+                String activos = streamToString.substring(streamToString.indexOf("\"active") + lecturaJsonAct, streamToString.indexOf(",\"critical"));
+                String criticos = streamToString.substring(streamToString.indexOf("\"critical") + lecturaJsonCrtRe, streamToString.indexOf(",\"recovered"));
+                String recuperados = cadenaCortada.substring(cadenaCortada.indexOf("recovered")+ lecturaJsonCrtRe,cadenaCortada.indexOf("1M_pop")-lecturaJsonRec);
+                String total = cadenaCortada.substring(cadenaCortada.indexOf("total")+ lecturaJsonTot,cadenaCortada.lastIndexOf("}"));
                 String cadenaCortada2 = streamToString.substring(streamToString.indexOf("\"deaths"), streamToString.indexOf(",\"tests"));
-                String muertes = cadenaCortada2.substring(cadenaCortada2.indexOf("new")+ 6,cadenaCortada2.indexOf("1M_pop")-3);
-                String totalMuertes = cadenaCortada2.substring(cadenaCortada2.indexOf("total")+ 7,cadenaCortada2.lastIndexOf("}"));
+                String muertes = cadenaCortada2.substring(cadenaCortada2.indexOf("new")+ lecturaJsonNew,cadenaCortada2.indexOf("1M_pop")-lecturaJsonBack);
+                String totalMuertes = cadenaCortada2.substring(cadenaCortada2.indexOf("total")+ lecturaJsonTot,cadenaCortada2.lastIndexOf("}"));
                 String reporte = "Nuevos Casos: "+ nuevosCasos + "\n\n"
                         + "Activos: "+"\t"+ activos + "\n\n"
                         + "Criticos: "+"\t"+ criticos + "\n\n"
