@@ -70,6 +70,11 @@ public class MenuApp extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void irASensores(View view) {
+        Intent intent = new Intent(this, EventosSensor.class);
+        startActivity(intent);
+    }
+
     public void irATips(View view) {
         Intent intent = new Intent(this, Tip.class);
         startActivity(intent);
