@@ -47,6 +47,7 @@ public class Calculadora extends AppCompatActivity {
     String token_refresh;
     int year, month, day;
     private static final int tokenVencido = 401;
+    private static final int difMes = 1;
     Date objDate;
 
     @Override
@@ -84,15 +85,14 @@ public class Calculadora extends AppCompatActivity {
         public void calcularProbabilidad(View view) throws IOException {
 
             objDate = new Date();
-            Date date = new Date(); // your date
-            // Choose time zone in which you want to interpret your Date
+            Date date = new Date();
             Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("America/Argentina"));
             cal.setTime(date);
             year = cal.get(Calendar.YEAR);
             month = cal.get(Calendar.MONTH);
             day = cal.get(Calendar.DAY_OF_MONTH);
             RegistrarEvento registro = new RegistrarEvento();
-            registro.execute("Consulta de calculadora de contagio", "Fecha y Hora: "+ day + "-" + month + "-" + year +
+            registro.execute("Consulta de calculadora de contagio", "Fecha y Hora: "+ day + "-" + (month+difMes) + "-" + year +
                     " " + objDate.getHours() + ":"+ objDate.getMinutes(), token, token_refresh);
 
             cantPersonasSelec = cantPersonas.getSelectedItem().toString();
@@ -165,7 +165,7 @@ public class Calculadora extends AppCompatActivity {
                 conn.setDoInput(true);
                 conn.setConnectTimeout(5000);
                 JSONObject json = new JSONObject();
-                json.put("env", "TEST");
+                json.put("env", "PROD");
                 json.put("type_events", params[0]);
                 json.put("description", params[1]);
                 OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());

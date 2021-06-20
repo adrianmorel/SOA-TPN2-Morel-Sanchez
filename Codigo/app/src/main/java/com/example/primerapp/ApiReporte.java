@@ -3,8 +3,6 @@ package com.example.primerapp;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Dialog;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
@@ -13,15 +11,9 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.SeekBar;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -131,23 +123,24 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
     // Asynctasks ---------------------------------------------------------------------------------
     public class ReporteAPITask extends android.os.AsyncTask<String, Void, String> {
 
+        private final static int relleno = 0;
         private final static int lecturaJsonRec = 2;
         private final static int lecturaJsonBack = 3;
         private final static int lecturaJsonNew = 6;
         private final static int lecturaJsonTot = 7;
         private final static int lecturaJsonAct = 9;
         private final static int lecturaJsonCrtRe = 11;
+        private final static int difMes = 1;
         @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         protected String doInBackground(String... params) {
-            Date date = new Date(); // your date
-            // Choose time zone in which you want to interpret your Date
+            Date date = new Date();
             Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("America/Argentina"));
             cal.setTime(date);
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH);
             int day = cal.get(Calendar.DAY_OF_MONTH);
-            String link = "https://covid-193.p.rapidapi.com/history?country=Argentina&day="+year+"-"+"0"+(month+1)+"-"+day;
+            String link = "https://covid-193.p.rapidapi.com/history?country=Argentina&day="+year+"-"+relleno+(month+difMes)+"-"+day;
             URL url = null;
             try {
                 url = new URL(link);

@@ -33,7 +33,9 @@ public class Registro extends AppCompatActivity {
      TextView dni;
      Button botonConf;
      ProgressBar pb;
+     Integer internet;
      private static final int ok = 200;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +92,7 @@ public class Registro extends AppCompatActivity {
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
         if (networkInfo != null && networkInfo.isConnected()) {
-            System.out.println("Conexion a internet ok");
+            internet = ok;
         } else {
             Toast.makeText(getApplicationContext(), "No hay conexion a internet, revise su estado de red e intentelo nuevamente", Toast.LENGTH_LONG).show();
             return;
@@ -103,7 +105,7 @@ public class Registro extends AppCompatActivity {
 
     }
 
-    ///------------------------------------AsyncTask-----------------------------------------------------------------------------
+
     public class RequestAPIRest extends android.os.AsyncTask<String, Void, Integer> {
 
         @Override
@@ -123,7 +125,7 @@ public class Registro extends AppCompatActivity {
                 conn.setDoInput(true);
                 conn.setConnectTimeout(5000);
                 JSONObject json = new JSONObject();
-                json.put("env", "TEST");
+                json.put("env", "PROD");
                 json.put("name", params[0]);
                 json.put("lastname", params[1]);
                 json.put("dni", params[2]);

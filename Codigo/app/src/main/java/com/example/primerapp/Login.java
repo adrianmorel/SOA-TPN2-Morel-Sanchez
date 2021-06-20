@@ -88,7 +88,6 @@ public class Login extends AppCompatActivity {
         lbl.setText("Iniciando Sesión...");
     }
 
-    // Asynctask ---------------------------------------------------------------------------------
     public class LoginTask extends android.os.AsyncTask<String, Void, Integer> {
 
         @RequiresApi(api = Build.VERSION_CODES.N)

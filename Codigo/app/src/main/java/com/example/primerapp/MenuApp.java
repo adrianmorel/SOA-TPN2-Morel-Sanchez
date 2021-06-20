@@ -9,15 +9,9 @@ import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -25,8 +19,6 @@ import java.net.URL;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class MenuApp extends AppCompatActivity {
 
@@ -48,8 +40,7 @@ public class MenuApp extends AppCompatActivity {
         float battery = (level / (float)scale)*escalaBateria;
         new SimpleDialog().show(getSupportFragmentManager(), String.valueOf(battery));
         Date objDate = new Date();
-        Date date = new Date(); // your date
-        // Choose time zone in which you want to interpret your Date
+        Date date = new Date();
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("America/Argentina"));
         cal.setTime(date);
         int year = cal.get(Calendar.YEAR);
@@ -82,7 +73,7 @@ public class MenuApp extends AppCompatActivity {
         startActivity(intent);
     }
 
-    // Asynctask ---------------------------------------------------------------------------------
+
     public class EventTask extends android.os.AsyncTask<String, Void, Integer> {
 
         @RequiresApi(api = Build.VERSION_CODES.N)
@@ -104,7 +95,7 @@ public class MenuApp extends AppCompatActivity {
                 conn.setDoInput(true);
                 conn.setConnectTimeout(5000);
                 JSONObject json = new JSONObject();
-                json.put("env", "TEST");
+                json.put("env", "PROD");
                 json.put("type_events", params[0]);
                 json.put("description", params[1]);
                 OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
