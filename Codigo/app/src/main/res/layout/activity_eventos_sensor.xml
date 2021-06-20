@@ -8,16 +8,13 @@
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="263dp"
-        android:layout_height="322dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginLeft="56dp"
+        android:layout_width="308dp"
+        android:layout_height="316dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.727">
+        app:layout_constraintVertical_bias="0.765">
 
         <TableRow
             android:layout_width="match_parent"
@@ -48,7 +45,7 @@
 
             <TextView
                 android:id="@+id/fila2Col1"
-                android:layout_width="166dp"
+                android:layout_width="179dp"
                 android:layout_height="wrap_content"
                 android:text="Lectura sensor distancia" />
 
@@ -109,14 +106,82 @@
                 android:layout_height="wrap_content"
                 android:text="TextView" />
         </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/fila6Col1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lectura acelerómetro eje X" />
+
+            <TextView
+                android:id="@+id/fila6Col2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/fila7Col1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lectura acelerómetro eje Y" />
+
+            <TextView
+                android:id="@+id/fila7Col2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/fila8Col1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lectura acelerómetro eje Z" />
+
+            <TextView
+                android:id="@+id/fila8Col2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/fila9Col1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Listener acelerómetro" />
+
+            <TextView
+                android:id="@+id/fila9Col2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </TableRow>
     </TableLayout>
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginLeft="56dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
         android:text="Valores de Estados de Sensores"
         android:textColor="#009688"
         android:textSize="18sp"
@@ -124,5 +189,5 @@
         app:layout_constraintBottom_toTopOf="@+id/tableLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.762" />
+        app:layout_constraintVertical_bias="0.622" />
 </androidx.constraintlayout.widget.ConstraintLayout>

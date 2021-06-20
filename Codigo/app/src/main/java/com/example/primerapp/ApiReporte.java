@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -49,7 +51,11 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_api_reporte);
-
+        SharedPreferences medicionesSensores = getSharedPreferences("sensores", Context.MODE_PRIVATE);
+        medicionesSensores.getString("Lectura acelerometro eje X", "desconocido");
+        medicionesSensores.getString("Lectura acelerometro eje Y", "desconocido");
+        medicionesSensores.getString("Lectura acelerometro eje Z", "desconocido");
+        medicionesSensores.getString("Listener acelerometro", "desconocido");
         sensor = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
 
@@ -63,15 +69,15 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        String txt = "\n\nSensor: ";
+
+        SharedPreferences medicionesSensores = getSharedPreferences("sensores", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = medicionesSensores.edit();
+        editor.putString("Lectura acelerometro eje X", String.valueOf(event.values[0]));
+        editor.putString("Lectura acelerometro eje Y", String.valueOf(event.values[1]));
+        editor.putString("Lectura acelerometro eje Z", String.valueOf(event.values[2]));
+        editor.commit();
 
         if ((Math.abs(event.values[0]) > ACC || Math.abs(event.values[1]) > ACC || Math.abs(event.values[2]) > ACC)) {
-            txt += "\n" + event.values[0];
-            System.out.println(txt);
-            txt += "\n" + event.values[1];
-            System.out.println(txt);
-            txt += "\n" + event.values[2];
-            System.out.println(txt);
             lblAgitar.setVisibility(View.INVISIBLE);
             lblReporte.setVisibility(View.VISIBLE);
             lblInfoAPI.setVisibility(View.VISIBLE);
@@ -93,18 +99,32 @@ public class ApiReporte extends AppCompatActivity implements SensorEventListener
     protected void onResume() {
         super.onResume();
         sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        SharedPreferences medicionesSensores = getSharedPreferences("sensores", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = medicionesSensores.edit();
+        editor.putString("Listener acelerometro", "Suscripto");
+        editor.commit();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+        sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        SharedPreferences medicionesSensores = getSharedPreferences("sensores", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = medicionesSensores.edit();
+        editor.putString("Listener acelerometro", "No suscripto");
+        editor.commit();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+        sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL);
+        SharedPreferences medicionesSensores = getSharedPreferences("sensores", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = medicionesSensores.edit();
+        editor.putString("Listener acelerometro", "No suscripto");
+        editor.commit();
     }
 
 
