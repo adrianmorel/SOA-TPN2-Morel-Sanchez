@@ -2,6 +2,8 @@ package com.example.primerapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -28,11 +30,14 @@ public class Tip extends AppCompatActivity implements SensorEventListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tips);
-
         sensor = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_PROXIMITY), SensorManager.SENSOR_DELAY_NORMAL);
         sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_NORMAL);
-
+        SharedPreferences medicionesSensores = getSharedPreferences("sensores", Context.MODE_PRIVATE);
+        medicionesSensores.getString("Lectura sensor distancia", "desconocido");
+        medicionesSensores.getString("Lectura sensor luz", "desconocido");
+        medicionesSensores.getString("Listener sensor distancia", "desconocido");
+        medicionesSensores.getString("Listener sensor luz", "desconocido");
         lblIndicacion = (TextView) findViewById(R.id.lblIndicacion);
         lblTip = (TextView) findViewById(R.id.lblTip);
 
@@ -52,24 +57,24 @@ public class Tip extends AppCompatActivity implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        String txt = "\n\nSensor: ";
         synchronized (this) {
+            SharedPreferences medicionesSensores = getSharedPreferences("sensores", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = medicionesSensores.edit();
             switch (event.sensor.getType()) {
                 case Sensor.TYPE_PROXIMITY:
 
+                    editor.putString("Lectura sensor distancia", String.valueOf(event.values[0]));
+                    editor.commit();
                     if(event.values[0] == 0){
                         int rnd = (int) (Math.random()*cantTips);
-                        System.out.println("El nro elegido es:" + rnd);
                         tip = listaDeTips.get(rnd);
                         lblTip.setText(tip);
                     }
                     break;
 
                 case Sensor.TYPE_LIGHT:
-
-                    txt += "\nLuz: ";
-                    txt += event.values[0] + "Lux \n";
-                    System.out.println(txt);
+                    editor.putString("Lectura sensor luz", String.valueOf(event.values[0]));
+                    editor.commit();
 
                     if(event.values[0] < brilloBajo){
                         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
@@ -99,6 +104,12 @@ public class Tip extends AppCompatActivity implements SensorEventListener {
         super.onResume();
         sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_PROXIMITY), SensorManager.SENSOR_DELAY_NORMAL);
         sensor.registerListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT), SensorManager.SENSOR_DELAY_NORMAL);
+        SharedPreferences medicionesSensores = getSharedPreferences("sensores", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = medicionesSensores.edit();
+        editor.putString("Listener sensor luz", "Suscripto");
+        editor.putString("Listener sensor distancia", "Suscripto");
+        editor.commit();
+
     }
 
     @Override
@@ -106,6 +117,11 @@ public class Tip extends AppCompatActivity implements SensorEventListener {
         super.onPause();
         sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_PROXIMITY));
         sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT));
+        SharedPreferences medicionesSensores = getSharedPreferences("sensores", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = medicionesSensores.edit();
+        editor.putString("Listener sensor luz", "No Suscripto");
+        editor.putString("Listener sensor distancia", "No Suscripto");
+        editor.commit();
     }
 
     @Override
@@ -113,5 +129,10 @@ public class Tip extends AppCompatActivity implements SensorEventListener {
         super.onDestroy();
         sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_PROXIMITY));
         sensor.unregisterListener(this, sensor.getDefaultSensor(Sensor.TYPE_LIGHT));
+        SharedPreferences medicionesSensores = getSharedPreferences("sensores", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = medicionesSensores.edit();
+        editor.putString("Listener sensor luz", "No Suscripto");
+        editor.putString("Listener sensor distancia", "No Suscripto");
+        editor.commit();
     }
 }
